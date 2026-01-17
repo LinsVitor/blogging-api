@@ -2,7 +2,7 @@ package com.linsvitor.blogging_api.service;
 
 import com.linsvitor.blogging_api.domain.Post;
 import com.linsvitor.blogging_api.repository.PostRepository;
-import com.linsvitor.blogging_api.service.exception.ResourceNotFoundException;
+import com.linsvitor.blogging_api.service.exception.PostNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class PostService {
 
     public Post findById(String id) {
         Optional<Post> post = postRepository.findById(id);
-        return post.orElseThrow(() -> new ResourceNotFoundException(id));
+        return post.orElseThrow(() -> new PostNotFoundException(id));
     }
 
     public Post insert(Post post) {
@@ -44,6 +44,6 @@ public class PostService {
             postRepository.save(uptadedPost);
             return uptadedPost;
         }
-        throw new ResourceNotFoundException(id);
+        throw new PostNotFoundException(id);
     }
 }
